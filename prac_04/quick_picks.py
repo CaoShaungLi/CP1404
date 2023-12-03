@@ -7,6 +7,7 @@ MAXIMUM = 45
 
 
 def main():
+    """Get quick pick and print random quick picks"""
     quick_pick = get_valid_quick_pick()
     for pick in range(quick_pick):
         numbers = []
@@ -22,6 +23,7 @@ def main():
 
 
 def get_valid_quick_pick():
+    """Get valid quick pick"""
     quick_pick = int(input("How many quick picks? "))
     while quick_pick < 0:
         print("Invalid number")
