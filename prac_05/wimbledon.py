@@ -24,13 +24,6 @@ def display_champion_and_win_count(champion_to_win_count, lines):
     champions = [line[CHAMPION_INDEX_NUMBER] for line in lines]
     champions.remove("Champion")
     print("Wimbledon Champions: ")
-    # for champion in champions:
-    #     if champion in champion_to_win_count:
-    #         champion_to_win_count[champion] += 1
-    #     else:
-    #         champion_to_win_count[champion] = 1
-    # for champion, win_count in champion_to_win_count.items():
-    #     print(f"{champion} {win_count}")
     for champion in champions:
         champion_to_win_count[champion] = champion_to_win_count.get(champion, 0) + 1
     for champion in champion_to_win_count:
