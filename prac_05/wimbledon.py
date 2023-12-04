@@ -1,0 +1,46 @@
+"""Game, Set, Match"""
+
+FILENAME = "wimbledon.csv"
+COUNTRY_INDEX_NUMBER = 1
+CHAMPION_INDEX_NUMBER = 2
+
+
+def main():
+    champion_to_win_count = {}
+    lines = open_in_file_to_read()
+    # print(lines)
+    display_champion_and_win_count(champion_to_win_count, lines)
+    display_champion_country(lines)
+
+
+def display_champion_country(lines):
+    countries = [line[COUNTRY_INDEX_NUMBER] for line in lines]
+    countries.remove("Country")
+    print(f"These {len(set(countries))} countries have won Wimbledon: ")
+    print(", ".join(sorted(set(countries))))
+
+
+def display_champion_and_win_count(champion_to_win_count, lines):
+    champions = [line[CHAMPION_INDEX_NUMBER] for line in lines]
+    champions.remove("Champion")
+    print("Wimbledon Champions: ")
+    # for champion in champions:
+    #     if champion in champion_to_win_count:
+    #         champion_to_win_count[champion] += 1
+    #     else:
+    #         champion_to_win_count[champion] = 1
+    # for champion, win_count in champion_to_win_count.items():
+    #     print(f"{champion} {win_count}")
+    for champion in champions:
+        champion_to_win_count[champion] = champion_to_win_count.get(champion, 0) + 1
+    for champion in champion_to_win_count:
+        print(f"{champion} {champion_to_win_count[champion]}")
+
+
+def open_in_file_to_read():
+    with open(FILENAME, "r", encoding="utf-8-sig") as in_file:
+        lines = [line.strip().split(",") for line in in_file.readlines()]
+    return lines
+
+
+main()
