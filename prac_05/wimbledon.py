@@ -34,6 +34,7 @@ def display_champion_and_win_count(champion_to_win_count, lines):
 
 
 def open_in_file_to_read():
+    """Open file to read record"""
     with open(FILENAME, "r", encoding="utf-8-sig") as in_file:
         lines = [line.strip().split(",") for line in in_file.readlines()]
     return lines
