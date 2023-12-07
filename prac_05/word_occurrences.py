@@ -11,7 +11,7 @@ for word in words:
 # print(word_to_count)
 words = list(word_to_count.keys())
 words.sort()
-maximum_word_length = max(len(word) for word in words)+1
+maximum_word_length = max(len(word) for word in words)
 for word in words:
-    print(f"{word:{maximum_word_length}}: {word_to_count[word]}")
+    print(f"{word:{maximum_word_length+1}}: {word_to_count[word]}")
 
