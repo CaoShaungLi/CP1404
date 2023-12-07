@@ -27,3 +27,6 @@ def extract_name_from_email(email):
     name_parts = name.split(".")
     full_name = " ".join(name_parts).title()
     return full_name
+
+
+main()
