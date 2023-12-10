@@ -1,4 +1,4 @@
-"""Testing"""
+"""Guitar Testing program"""
 from prac_06.guitar import Guitar
 
 
