@@ -9,11 +9,11 @@ from prac_06.car import Car
 
 def main():
     """Demo test code to show how to use car class."""
-    my_car = Car(180, "BMW")
+    my_car = Car(180, "My Car")
     my_car.drive(30)
     print(f"Car has fuel: {my_car.fuel}")
     print(my_car)
-    limbo = Car(fuel=100)
+    limbo = Car(100, "Limbo")
     limbo.add_fuel(20)
     print(f"Car has fuel: {limbo.fuel}")
     limbo.drive(115)
