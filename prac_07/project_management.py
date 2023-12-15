@@ -22,7 +22,8 @@ def main():
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "L":
-            file_name_to_load = input("Enter file name to load project: ")
+            file_name_to_load = "projects.txt"
+            # file_name_to_load = input("Enter file name to load project: ")
             in_file = open(file_name_to_load, 'r')
             in_file.readline()
             for line in in_file:
@@ -81,10 +82,22 @@ def main():
             projects.append(project)
             for project in projects:
                 print(project)
-        # elif choice == "U":
-        #     pass
+        elif choice == "U":
+            for number, project in enumerate(projects):
+                print(number, project)
+            project_choice = int(input("Project choice: "))
+            for number, project in enumerate(projects):
+                if project_choice == number:
+                    # print(project)
+                    new_percentage = int(input("New Percentage: "))
+                    new_priority = int(input("New Priority: "))
+                    project.completion_percentage = new_percentage
+                    project.priority = new_priority
+                    print(project)
+
         # else:
         #     pass
+        print(MENU)
         choice = input(">>> ").upper()
 
 
