@@ -28,8 +28,8 @@ def main():
             for line in in_file:
                 parts = line.strip().split("\t")
                 # print(parts)
-                date = datetime.strptime(parts[2], "%d/%m/%Y").date()
-                project = Project(parts[0], parts[1], date, float(parts[3]), int(parts[4]))
+                date = datetime.strptime(parts[1], "%d/%m/%Y").date()
+                project = Project(parts[0], date, parts[2], float(parts[3]), int(parts[4]))
                 projects.append(project)
             in_file.close()
             for project in projects:
@@ -62,15 +62,20 @@ def main():
                 for project in projects:
                     if project.completion_percentage == 100:
                         print(project)
-        # elif choice == "F":
-        #     pass
+        elif choice == "F":
+            input_date_string = input("Show projects that start after date (dd/mm/yy): ")
+            input_date = datetime.strptime(input_date_string, "%d/%m/%Y").date()
+            for project in projects:
+                if project.start_date > input_date:
+                    print(project)
+
         elif choice == "A":
             print("Let's add new project")
             project_name = input("Name: ")
             date_string = input("Date (d/m/yyyy): ")
             date = datetime.strptime(date_string, "%d/%m/%Y").date()
             priority = int(input("Priority: "))
-            cost_estimate = float(input("Cost estimate: "))
+            cost_estimate = float(input("Cost estimate: $"))
             percent_complete = int(input("Percent complete: "))
             project = Project(project_name, date, priority, cost_estimate, percent_complete)
             projects.append(project)
