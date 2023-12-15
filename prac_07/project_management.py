@@ -28,7 +28,8 @@ def main():
             for line in in_file:
                 parts = line.strip().split("\t")
                 # print(parts)
-                project = Project(parts[0], parts[1], parts[2], float(parts[3]), int(parts[4]))
+                date = datetime.strptime(parts[2], "%d/%m/%Y").date()
+                project = Project(parts[0], parts[1], date, float(parts[3]), int(parts[4]))
                 projects.append(project)
             in_file.close()
             for project in projects:
@@ -63,14 +64,18 @@ def main():
                         print(project)
         # elif choice == "F":
         #     pass
-        # elif choice == "A":
-        #     print("Let's add new project")
-        #     project_name = input("Name: ")
-        #     start_date = input("Start date (dd/mm/yy): ")
-        #     priority = int(input("Priority: "))
-        #     cost_estimate = float(input("Cost estimate"))
-        #     percent_complete = int(input("Percent complete: "))
-        #     project = Project(project_name, start_date, priority, cost_estimate, percent_complete)
+        elif choice == "A":
+            print("Let's add new project")
+            project_name = input("Name: ")
+            date_string = input("Date (d/m/yyyy): ")
+            date = datetime.strptime(date_string, "%d/%m/%Y").date()
+            priority = int(input("Priority: "))
+            cost_estimate = float(input("Cost estimate: "))
+            percent_complete = int(input("Percent complete: "))
+            project = Project(project_name, date, priority, cost_estimate, percent_complete)
+            projects.append(project)
+            for project in projects:
+                print(project)
         # elif choice == "U":
         #     pass
         # else:
