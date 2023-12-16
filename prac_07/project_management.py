@@ -23,57 +23,34 @@ def main():
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "L":
-            file_name_to_load = "projects.txt"
-            # file_name_to_load = input("Enter file name to load project: ")
+            # file_name_to_load = "projects.txt"
+            file_name_to_load = input("Enter file name to load project: ")
             try:
-                in_file = open(file_name_to_load, 'r')
-                in_file.readline()
-                for line in in_file:
-                    parts = line.strip().split("\t")
-                    # print(parts)
-                    date = datetime.strptime(parts[1], "%d/%m/%Y").date()
-                    project = Project(parts[0], date, parts[2], float(parts[3]), int(parts[4]))
-                    projects.append(project)
-                in_file.close()
+                load_projects_from_file(file_name_to_load, projects)
                 for project in projects:
                     print(project)
             except FileNotFoundError:
-                print(f"{file_name_to_load} not found")
+                print("File not found")
 
         elif choice == "S":
             if not projects:
                 print("No file to save.")
             else:
                 file_name_to_save = input("Enter file name to save project: ")
-                out_file = open(file_name_to_save, 'w')
-                for each_project in projects:
-                    information = f"{each_project.project}\t{each_project.start_date}\t{each_project.cost_estimate}\t" \
-                                  f"{each_project.priority}\t{each_project.completion_percentage}"
-                    print(information, file=out_file)
-                out_file.close()
+                save_file(file_name_to_save, projects)
 
         elif choice == "D":
             projects.sort()
             if not projects:
                 print("No project yet.")
             else:
-                # for project in projects:
-                #     print(project.completion_percentage)
-                print("Incomplete Projects: ")
-                for project in projects:
-                    if project.completion_percentage != 100:
-                        print(project)
-                print("Complete Projects: ")
-                for project in projects:
-                    if project.completion_percentage == 100:
-                        print(project)
+                display_incomplete_project(projects)
+                display_complete_project(projects)
         elif choice == "F":
             try:
                 input_date_string = input("Show projects that start after date (dd/mm/yy): ")
                 input_date = datetime.strptime(input_date_string, "%d/%m/%Y").date()
-                for project in projects:
-                    if project.is_greater(input_date):
-                        print(project)
+                display_filtered_project(input_date, projects)
             except ValueError:
                 print("Invalid input")
 
@@ -98,17 +75,63 @@ def main():
             project_choice = int(input("Project choice: "))
             for number, project in enumerate(projects):
                 if project_choice == number:
-                    # print(project)
-                    new_percentage = int(input("New Percentage: "))
-                    new_priority = int(input("New Priority: "))
-                    project.completion_percentage = new_percentage
-                    project.priority = new_priority
-                    print(project)
+                    new_percentage = input("New Percentage: ")
+                    new_priority = input("New Priority: ")
+                    if new_percentage and new_priority != "":
+                        display_updated_project(new_percentage, new_priority, project)
+                    else:
+                        print(project)
 
         else:
             print("Invalid choice")
         print(MENU)
         choice = input(">>> ").upper()
+
+
+def display_filtered_project(input_date, projects):
+    for project in projects:
+        if project.is_greater(input_date):
+            print(project)
+
+
+def display_updated_project(new_percentage, new_priority, project):
+    project.completion_percentage = int(new_percentage)
+    project.priority = int(new_priority)
+    print(project)
+
+
+def load_projects_from_file(file_name_to_load, projects):
+    in_file = open(file_name_to_load, 'r')
+    in_file.readline()
+    for project_line in in_file:
+        parts = project_line.strip().split("\t")
+        date = datetime.strptime(parts[1], "%d/%m/%Y").date()
+        project = Project(parts[0], date, parts[2], float(parts[3]), int(parts[4]))
+        projects.append(project)
+    in_file.close()
+
+
+def display_complete_project(projects):
+    print("Complete Projects: ")
+    for project in projects:
+        if project.completion_percentage == 100:
+            print(project)
+
+
+def display_incomplete_project(projects):
+    print("Incomplete Projects: ")
+    for project in projects:
+        if project.completion_percentage != 100:
+            print(project)
+
+
+def save_file(file_name_to_save, projects):
+    out_file = open(file_name_to_save, 'w')
+    for each_project in projects:
+        information = f"{each_project.project}\t{each_project.start_date}\t{each_project.cost_estimate}\t" \
+                      f"{each_project.priority}\t{each_project.completion_percentage}"
+        print(information, file=out_file)
+    out_file.close()
 
 
 print("Thank you for using custom-built project management software.")
