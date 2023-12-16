@@ -19,3 +19,6 @@ class Project:
 
     def __lt__(self, other):
         return self.completion_percentage < other.completion_percentage
+
+    def is_greater(self, input_date):
+        return self.start_date > input_date
