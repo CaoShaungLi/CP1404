@@ -24,17 +24,20 @@ def main():
         if choice == "L":
             file_name_to_load = "projects.txt"
             # file_name_to_load = input("Enter file name to load project: ")
-            in_file = open(file_name_to_load, 'r')
-            in_file.readline()
-            for line in in_file:
-                parts = line.strip().split("\t")
-                # print(parts)
-                date = datetime.strptime(parts[1], "%d/%m/%Y").date()
-                project = Project(parts[0], date, parts[2], float(parts[3]), int(parts[4]))
-                projects.append(project)
-            in_file.close()
-            for project in projects:
-                print(project)
+            try:
+                in_file = open(file_name_to_load, 'r')
+                in_file.readline()
+                for line in in_file:
+                    parts = line.strip().split("\t")
+                    # print(parts)
+                    date = datetime.strptime(parts[1], "%d/%m/%Y").date()
+                    project = Project(parts[0], date, parts[2], float(parts[3]), int(parts[4]))
+                    projects.append(project)
+                in_file.close()
+                for project in projects:
+                    print(project)
+            except FileNotFoundError:
+                print(f"{file_name_to_load} not found")
 
         elif choice == "S":
             if not projects:
@@ -53,8 +56,8 @@ def main():
             if not projects:
                 print("No project yet.")
             else:
-                for project in projects:
-                    print(project.completion_percentage)
+                # for project in projects:
+                #     print(project.completion_percentage)
                 print("Incomplete Projects: ")
                 for project in projects:
                     if project.completion_percentage != 100:
@@ -64,24 +67,30 @@ def main():
                     if project.completion_percentage == 100:
                         print(project)
         elif choice == "F":
-            input_date_string = input("Show projects that start after date (dd/mm/yy): ")
-            input_date = datetime.strptime(input_date_string, "%d/%m/%Y").date()
-            for project in projects:
-                if project.start_date > input_date:
-                    print(project)
+            try:
+                input_date_string = input("Show projects that start after date (dd/mm/yy): ")
+                input_date = datetime.strptime(input_date_string, "%d/%m/%Y").date()
+                for project in projects:
+                    if project.is_greater(input_date):
+                        print(project)
+            except ValueError:
+                print("Invalid input")
 
         elif choice == "A":
             print("Let's add new project")
-            project_name = input("Name: ")
-            date_string = input("Date (d/m/yyyy): ")
-            date = datetime.strptime(date_string, "%d/%m/%Y").date()
-            priority = int(input("Priority: "))
-            cost_estimate = float(input("Cost estimate: $"))
-            percent_complete = int(input("Percent complete: "))
-            project = Project(project_name, date, priority, cost_estimate, percent_complete)
-            projects.append(project)
-            for project in projects:
-                print(project)
+            try:
+                project_name = input("Name: ")
+                date_string = input("Date (d/m/yyyy): ")
+                date = datetime.strptime(date_string, "%d/%m/%Y").date()
+                priority = int(input("Priority: "))
+                cost_estimate = float(input("Cost estimate: $"))
+                percent_complete = int(input("Percent complete: "))
+                project = Project(project_name, date, priority, cost_estimate, percent_complete)
+                projects.append(project)
+                for project in projects:
+                    print(project)
+            except ValueError:
+                print("Invalid input")
         elif choice == "U":
             for number, project in enumerate(projects):
                 print(number, project)
@@ -95,8 +104,8 @@ def main():
                     project.priority = new_priority
                     print(project)
 
-        # else:
-        #     pass
+        else:
+            print("Invalid choice")
         print(MENU)
         choice = input(">>> ").upper()
 
