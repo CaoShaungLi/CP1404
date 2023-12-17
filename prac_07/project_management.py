@@ -48,6 +48,7 @@ def main():
             else:
                 display_incomplete_project(projects)
                 display_complete_project(projects)
+
         elif choice == "F":
             try:
                 input_date_string = input("Show projects that start after date (dd/mm/yy): ")
@@ -64,18 +65,22 @@ def main():
                     print(project)
             except ValueError:
                 print("Invalid input")
+
         elif choice == "U":
-            for number, project in enumerate(projects):
-                print(number, project)
-            project_choice = int(input("Project choice: "))
-            for number, project in enumerate(projects):
-                if project_choice == number:
-                    new_percentage = input("New Percentage: ")
-                    new_priority = input("New Priority: ")
-                    if new_percentage and new_priority != "":
-                        display_updated_project(new_percentage, new_priority, project)
-                    else:
-                        print(project)
+            if not projects:
+                print("No projects yet")
+            else:
+                for number, project in enumerate(projects):
+                    print(number, project)
+                project_choice = int(input("Project choice: "))
+                for number, project in enumerate(projects):
+                    if project_choice == number:
+                        new_percentage = input("New Percentage: ")
+                        new_priority = input("New Priority: ")
+                        if new_percentage and new_priority != "":
+                            display_updated_project(new_percentage, new_priority, project)
+                        else:
+                            print(project)
 
         else:
             print("Invalid choice")
