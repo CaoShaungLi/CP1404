@@ -18,7 +18,9 @@ class Project:
                f" completion: {self.completion_percentage}%"
 
     def __lt__(self, other):
+        """Return smaller value"""
         return self.completion_percentage < other.completion_percentage
 
     def is_greater(self, input_date):
+        """Return greater value"""
         return self.start_date > input_date
