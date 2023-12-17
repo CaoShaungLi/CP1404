@@ -19,7 +19,7 @@ class Project:
 
     def __lt__(self, other):
         """Return smaller value"""
-        return self.completion_percentage < other.completion_percentage
+        return self.priority < other.priority
 
     def is_greater(self, input_date):
         """Return greater value"""
