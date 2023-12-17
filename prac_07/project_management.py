@@ -18,6 +18,7 @@ MENU = """
 
 
 def main():
+    """Get file name for user to load, save, display, add, filter, and update projects"""
     print(MENU)
     projects = []
     choice = input(">>> ").upper()
@@ -89,18 +90,21 @@ def main():
 
 
 def display_filtered_project(input_date, projects):
+    """Display filtered project by date"""
     for project in projects:
         if project.is_greater(input_date):
             print(project)
 
 
 def display_updated_project(new_percentage, new_priority, project):
+    """Display updated project with new percentage and new priority"""
     project.completion_percentage = int(new_percentage)
     project.priority = int(new_priority)
     print(project)
 
 
 def load_projects_from_file(file_name_to_load, projects):
+    """Load projects from text file"""
     in_file = open(file_name_to_load, 'r')
     in_file.readline()
     for project_line in in_file:
@@ -112,6 +116,7 @@ def load_projects_from_file(file_name_to_load, projects):
 
 
 def display_complete_project(projects):
+    """Display complete projects"""
     print("Complete Projects: ")
     for project in projects:
         if project.completion_percentage == 100:
@@ -119,6 +124,7 @@ def display_complete_project(projects):
 
 
 def display_incomplete_project(projects):
+    """Display incomplete projects"""
     print("Incomplete Projects: ")
     for project in projects:
         if project.completion_percentage != 100:
@@ -126,6 +132,7 @@ def display_incomplete_project(projects):
 
 
 def save_file(file_name_to_save, projects):
+    """Save projects to text file"""
     out_file = open(file_name_to_save, 'w')
     for each_project in projects:
         information = f"{each_project.project}\t{each_project.start_date}\t{each_project.cost_estimate}\t" \
