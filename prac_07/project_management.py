@@ -15,6 +15,7 @@ MENU = """
 - (U)pdate project
 - (Q)uit
 """
+COMPLETE_PROJECT_PERCENTAGE = 100
 
 
 def main():
@@ -58,14 +59,7 @@ def main():
         elif choice == "A":
             print("Let's add new project")
             try:
-                project_name = input("Name: ")
-                date_string = input("Date (d/m/yyyy): ")
-                date = datetime.strptime(date_string, "%d/%m/%Y").date()
-                priority = int(input("Priority: "))
-                cost_estimate = float(input("Cost estimate: $"))
-                percent_complete = int(input("Percent complete: "))
-                project = Project(project_name, date, priority, cost_estimate, percent_complete)
-                projects.append(project)
+                add_new_project(projects)
                 for project in projects:
                     print(project)
             except ValueError:
@@ -87,6 +81,20 @@ def main():
             print("Invalid choice")
         print(MENU)
         choice = input(">>> ").upper()
+
+
+print("Thank you for using custom-built project management software.")
+
+
+def add_new_project(projects):
+    project_name = input("Name: ")
+    date_string = input("Date (d/m/yyyy): ")
+    date = datetime.strptime(date_string, "%d/%m/%Y").date()
+    priority = int(input("Priority: "))
+    cost_estimate = float(input("Cost estimate: $"))
+    percent_complete = int(input("Percent complete: "))
+    project = Project(project_name, date, priority, cost_estimate, percent_complete)
+    projects.append(project)
 
 
 def display_filtered_project(input_date, projects):
@@ -119,7 +127,7 @@ def display_complete_project(projects):
     """Display complete projects"""
     print("Complete Projects: ")
     for project in projects:
-        if project.completion_percentage == 100:
+        if project.completion_percentage == COMPLETE_PROJECT_PERCENTAGE:
             print(project)
 
 
@@ -127,7 +135,7 @@ def display_incomplete_project(projects):
     """Display incomplete projects"""
     print("Incomplete Projects: ")
     for project in projects:
-        if project.completion_percentage != 100:
+        if project.completion_percentage != COMPLETE_PROJECT_PERCENTAGE:
             print(project)
 
 
@@ -140,7 +148,5 @@ def save_file(file_name_to_save, projects):
         print(information, file=out_file)
     out_file.close()
 
-
-print("Thank you for using custom-built project management software.")
 
 main()
