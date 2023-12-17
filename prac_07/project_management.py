@@ -92,6 +92,7 @@ print("Thank you for using custom-built project management software.")
 
 
 def add_new_project(projects):
+    """Add new project to projects"""
     project_name = input("Name: ")
     date_string = input("Date (d/m/yyyy): ")
     date = datetime.strptime(date_string, "%d/%m/%Y").date()
