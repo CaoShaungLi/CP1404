@@ -29,6 +29,7 @@ def main():
         out_file = open(FILE_NAME, 'a')
         new_guitar = f"{name},{year},{cost}"
         print(new_guitar, file=out_file)
+        out_file.close()
         name = input("Name: ")
     # for guitar in guitars:
     #     print(guitar)
