@@ -30,6 +30,7 @@ class MilesToKilometersApp(App):
         return output
 
     def handle_increment(self, change):
+        """Increase or decrease the number while the text is not empty."""
         if self.root.ids.input_miles.text == "":
             self.root.ids.input_miles.text = str(0)
         else:
@@ -37,6 +38,7 @@ class MilesToKilometersApp(App):
             self.root.ids.input_miles.text = str(miles)
 
     def validate_input(self):
+        """Validate input and convert to float, if invalid return 0"""
         try:
             value = float(self.root.ids.input_miles.text)
             if value < 0:
