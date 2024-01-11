@@ -6,6 +6,7 @@ MENU = "q)uit, c)hoose taxi, d)rive"
 
 
 def main():
+    """Stimulate a taxi and calculate fare."""
     total_fare = 0
     current_taxi = None
     taxis = [Taxi("Prius", 100), SilverServiceTaxi("Limo", 100, 2), SilverServiceTaxi("Hummer", 200, 4)]
@@ -39,6 +40,7 @@ def main():
 
 
 def validate_taxi_choice(current_taxi, taxi_choice, taxis):
+    """Validate taxi number chosen by the user."""
     try:
         current_taxi = taxis[taxi_choice]
     except IndexError:
@@ -47,6 +49,7 @@ def validate_taxi_choice(current_taxi, taxi_choice, taxis):
 
 
 def display_taxi(taxis):
+    """Display taxis to users."""
     for i, taxi in enumerate(taxis):
         print(f"{i} - {taxi}")
 
